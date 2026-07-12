@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<!-- new-features.html -->
+<!-- یہ ایک مکمل فائل ہے جس میں تمام نئے فیچرز شامل ہیں -->
+<!-- HTML, CSS اور JavaScript سب ایک ہی فائل میں -->
+
+<style>
+/* ============================================================
+   NEW FEATURES CSS - تمام کلاسیز "nf-" prefix استعمال کرتی ہیں
+   ============================================================ */
+
+/* ===== FLOATING QUICK BUTTONS ===== */
+.nf-quick-buttons {
+    position: fixed;
+    top: 80px;
+    left: 16px;
+    z-index: 9997;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nf-qbtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    padding: 8px 18px 8px 18px;
+    color: #e0e0e0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    white-space: nowrap;
+}
+
+.nf-qbtn .nf-qicon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.nf-qbtn-register {
+    border-right: 3px solid #34d399;
+}
+
+.nf-qbtn-register:hover {
+    background: rgba(52, 211, 153, 0.15);
+    border-color: #34d399;
+    transform: translateX(-4px);
+    box-shadow: 0 8px 30px rgba(52, 211, 153, 0.2);
+}
+
+.nf-qbtn-review {
+    border-right: 3px solid #fbbf24;
+}
+
+.nf-qbtn-review:hover {
+    background: rgba(251, 191, 36, 0.15);
+    border-color: #fbbf24;
+    transform: translateX(-4px);
+    box-shadow: 0 8px 30px rgba(251, 191, 36, 0.2);
+}
+
+/* ===== PROFILE WATERMARK ===== */
+.nf-profile-container {
+    position: relative;
+    display: inline-block;
+    margin: -110px auto 20px auto;
+    text-align: center;
+    width: 100%;
+}
+
+.nf-profile-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 4px solid #4f46e5;
+    box-shadow: 0 0 40px rgba(79, 70, 229, 0.3);
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    background: #0d1b2a;
+    transition: all 0.3s ease;
+}
+
+.nf-profile-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 60px rgba(79, 70, 229, 0.5);
+}
+
+.nf-watermark {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 10px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 3px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    backdrop-filter: blur(4px);
+}
+
+/* ===== COPY LINK BUTTON ===== */
+.nf-copy-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    padding: 4px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nf-copy-btn:hover {
+    background: rgba(79, 70, 229, 0.15);
+    border-color: #7c3aed;
+    color: #a78bfa;
+    transform: scale(1.05);
+}
+
+.nf-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.nf-title {
+    color: #f1f5f9;
+    border-bottom: 3px solid #4f46e5;
+    padding-bottom: 10px;
+    margin-top: 35px;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+}
+
+/* ===== DASHBOARD COPY ICON ===== */
+.nf-copy-icon {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #94a3b8;
+    font-size: 16px;
+    opacity: 0.5;
+}
+
+.nf-copy-icon:hover {
+    background: rgba(79, 70, 229, 0.2);
+    border-color: rgba(124, 58, 237, 0.4);
+    color: #a78bfa;
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.nf-copy-icon.nf-copied {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #34d399;
+}
+
+/* ===== PORTAL BOX ===== */
+.nf-portal-box {
+    display: none;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(79, 70, 229, 0.2);
+    padding: 25px;
+    border-radius: 16px;
+    margin-top: 30px;
+}
+
+.nf-portal-section {
+    display: none;
+}
+
+/* ===== STATUS BOX ===== */
+.nf-status-box {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 16px;
+    border: 2px solid rgba(239, 68, 68, 0.15);
+}
+
+.nf-status-box h2 {
+    font-size: 32px;
+    color: #f87171;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.nf-status-box p {
+    color: #94a3b8;
+    font-size: 16px;
+    text-align: center;
+}
+
+.nf-status-box .nf-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* ===== FORM GROUP ===== */
+.nf-form-group {
+    margin-bottom: 20px;
+}
+
+.nf-form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #e0e0e0;
+}
+
+.nf-form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    font-size: 15px;
+    transition: 0.3s;
+    text-align: right;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+}
+
+.nf-form-group input:focus {
+    border-color: #7c3aed;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.nf-form-group input::placeholder {
+    color: #666;
+}
+
+/* ===== BUTTONS ===== */
+.nf-btn {
+    border: none;
+    padding: 14px 20px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    width: 100%;
+}
+
+.nf-btn-primary {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+}
+
+.nf-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(79, 70, 229, 0.4);
+}
+
+.nf-btn-success {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    box-shadow: 0 4px 20px rgba(5, 150, 105, 0.3);
+}
+
+.nf-btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(5, 150, 105, 0.4);
+}
+
+.nf-btn-danger {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    color: white;
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+}
+
+.nf-btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4);
+}
+
+.nf-btn-save {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+    font-size: 16px;
+}
+
+.nf-btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+}
+
+.nf-btn-print {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(5, 150, 105, 0.3);
+    font-size: 16px;
+}
+
+.nf-btn-print:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(5, 150, 105, 0.4);
+}
+
+.nf-btn-group {
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nf-btn-group .nf-btn {
+    width: auto;
+    padding: 12px 30px;
+}
+
+/* ===== BADGE ===== */
+.nf-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.nf-badge-on {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.nf-badge-off {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* ===== ROLL SLIP CARD ===== */
+#nf-rollSlipCard {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(124, 58, 237, 0.25);
+    border-radius: 24px;
+    padding: 35px 30px;
+    max-width: 520px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+    direction: rtl;
+}
+
+#nf-rollSlipCard::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 40%, rgba(79, 70, 229, 0.08) 0%, transparent 60%);
+    animation: nfRotateGlow 20s linear infinite;
+}
+
+@keyframes nfRotateGlow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#nf-rollSlipCard .nf-glow {
+    position: absolute;
+    top: -30%;
+    right: -30%;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+#nf-rollSlipCard .nf-academy {
+    color: #f1f5f9;
+    font-size: 19px;
+    font-weight: bold;
+    margin: 5px 0;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+}
+
+#nf-rollSlipCard .nf-instructor {
+    color: #a78bfa;
+    font-weight: 500;
+    margin: 5px 0;
+    position: relative;
+    z-index: 1;
+    font-size: 14px;
+}
+
+#nf-rollSlipCard .nf-divider {
+    border: 0;
+    border-top: 1px solid rgba(124, 58, 237, 0.15);
+    margin: 15px 0;
+    position: relative;
+    z-index: 1;
+}
+
+#nf-rollSlipCard .nf-card-title {
+    color: #34d399;
+    font-size: 18px;
+    margin: 8px 0;
+    position: relative;
+    z-index: 1;
+}
+
+#nf-rollSlipCard .nf-details {
+    color: #e0e0e0;
+    font-size: 15px;
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 16px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: right;
+    width: 100%;
+}
+
+#nf-rollSlipCard .nf-details p {
+    margin: 6px 0;
+    text-align: right;
+}
+
+#nf-rollSlipCard .nf-details .nf-label {
+    color: #94a3b8;
+    font-weight: normal;
+}
+
+#nf-rollSlipCard .nf-details .nf-value {
+    color: #f1f5f9;
+    font-weight: 500;
+}
+
+#nf-rollSlipCard .nf-roll-number {
+    font-size: 28px;
+    background: linear-gradient(135deg, #a78bfa, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+    padding: 8px 0;
+    letter-spacing: 1px;
+}
+
+#nf-rollSlipCard .nf-footer {
+    font-size: 13px;
+    color: #94a3b8;
+    position: relative;
+    z-index: 1;
+    line-height: 1.8;
+    text-align: center;
+}
+
+/* ============================================================
+     LIGHT MODE SUPPORT
+     ============================================================ */
+body.light-mode .nf-quick-buttons .nf-qbtn {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #1a1a2e;
+}
+
+body.light-mode .nf-qbtn-register {
+    border-right: 3px solid #059669;
+}
+
+body.light-mode .nf-qbtn-register:hover {
+    background: rgba(5, 150, 105, 0.1);
+}
+
+body.light-mode .nf-qbtn-review {
+    border-right: 3px solid #d97706;
+}
+
+body.light-mode .nf-qbtn-review:hover {
+    background: rgba(217, 119, 6, 0.1);
+}
+
+body.light-mode .nf-title {
+    color: #1a1a2e;
+}
+
+body.light-mode .nf-form-group label {
+    color: #1a1a2e;
+}
+
+body.light-mode .nf-form-group input {
+    background: rgba(255, 255, 255, 0.8);
+    color: #1a1a2e;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode #nf-rollSlipCard {
+    background: rgba(255, 255, 255, 0.92);
+}
+
+body.light-mode #nf-rollSlipCard .nf-academy {
+    color: #1a1a2e;
+}
+
+body.light-mode #nf-rollSlipCard .nf-details {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+body.light-mode #nf-rollSlipCard .nf-details .nf-value {
+    color: #1a1a2e;
+}
+
+/* ============================================================
+     RESPONSIVE DESIGN
+     ============================================================ */
+@media (max-width: 768px) {
+    .nf-quick-buttons {
+        top: 72px;
+        left: 10px;
+        gap: 8px;
+    }
+    
+    .nf-qbtn {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+    
+    .nf-qbtn .nf-qicon {
+        font-size: 18px;
+    }
+    
+    .nf-profile-img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    #nf-rollSlipCard {
+        padding: 20px;
+        margin: 0 10px;
+    }
+    
+    #nf-rollSlipCard .nf-academy {
+        font-size: 15px;
+    }
+    
+    #nf-rollSlipCard .nf-roll-number {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nf-quick-buttons {
+        top: 65px;
+        left: 6px;
+        gap: 6px;
+    }
+    
+    .nf-qbtn {
+        padding: 4px 12px;
+        font-size: 11px;
+        border-radius: 40px;
+    }
+    
+    .nf-qbtn .nf-qicon {
+        font-size: 16px;
+    }
+    
+    .nf-btn-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nf-btn-group .nf-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+/* ============================================================
+     TOAST ANIMATIONS
+     ============================================================ */
+@keyframes nfSlideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+@keyframes nfSlideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+@keyframes nfSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes nfFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<!-- ============================================================
+     NEW FEATURES HTML
+     ============================================================ -->
+
+<!-- ===== 1. FLOATING QUICK ACCESS BUTTONS ===== -->
+<div class="nf-quick-buttons">
+    <button class="nf-qbtn nf-qbtn-register" onclick="nfScrollTo('reg-form-title')">
+        <span class="nf-qicon">📝</span>
+        <span>Register Now</span>
+    </button>
+    <button class="nf-qbtn nf-qbtn-review" onclick="nfScrollTo('reviewSection')">
+        <span class="nf-qicon">⭐</span>
+        <span>Review</span>
+    </button>
+</div>
+
+<!-- ===== 2. ROLL NUMBER SLIP PORTAL ===== -->
+<div id="nf-rollSlipPortal" class="nf-portal-box nf-portal-section" style="display:none;">
+    <div class="nf-section-header">
+        <h2 style="color: #f1f5f9;">🎫 رول نمبر سلپ پورٹل</h2>
+        <button class="nf-copy-btn" onclick="nfCopyLink('nf-rollSlipPortal')">📋 کاپی لنک</button>
+    </div>
+    
+    <div id="nf-rollSlipClosedMsg" style="display:none;">
+        <div class="nf-status-box">
+            <span class="nf-icon">🎫</span>
+            <h2 style="color: #f87171;">رول نمبر پورٹل بند ہے</h2>
+            <p>رول نمبر پورٹل فی الحال بند ہے۔ براہِ کرم بعد میں دوبارہ کوشش کریں۔</p>
+            <p style="color:#94a3b8; font-size:14px; margin-top:10px;">The Roll Number Portal is currently closed. Please try again later.</p>
+        </div>
+    </div>
+    
+    <div id="nf-rollSlipSearchArea">
+        <div class="nf-form-group">
+            <label>اپنا شناختی کارڈ نمبر درج کریں:</label>
+            <input type="text" id="nf-rollSlipCNIC" placeholder="XXXXX-XXXXXXX-X" required>
+            <small style="color:#94a3b8; display:block; margin-top:5px;">مثال: 12345-1234567-1</small>
+        </div>
+        <button class="nf-btn nf-btn-primary" onclick="nfCheckRollSlip()">🎫 سلپ دیکھیں</button>
+    </div>
+    
+    <div id="nf-rollSlipDisplayBox" style="margin-top:20px; display:none;"></div>
+</div>
+
+<!-- ===== 3. ROLL SLIP CONTROL IN ADMIN PANEL ===== -->
+<div id="nf-rollSlipControl" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+    <h4 style="color: #e0e0e0;">🎫 رول نمبر سلپ پورٹل</h4>
+    <p style="color: #94a3b8;">موجودہ اسٹیٹس: <span id="nf-rollSlipStatusBadge" class="nf-badge nf-badge-off">لوڈنگ...</span></p>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="nf-btn nf-btn-success" style="width:auto; padding:10px 20px; font-size:14px;" onclick="nfSetPortalStatus('rollSlip', true)">🚀 اوپن کریں</button>
+        <button class="nf-btn nf-btn-danger" style="width:auto; padding:10px 20px; font-size:14px;" onclick="nfSetPortalStatus('rollSlip', false)">🛑 بند کریں</button>
+    </div>
+</div>
+
+<!-- ===== 4. MENU - ROLL SLIP LINK ===== -->
+<!-- یہ لنک مینو میں شامل کریں -->
+<!-- <a href="#" onclick="nfScrollTo('nf-rollSlipPortal'); nfToggleMenu()">🎫 رول نمبر سلپ</a> -->
+
+<!-- ===== 5. COPY LINK BUTTONS ===== -->
+<!-- ہر سیکشن کے ساتھ یہ بٹن شامل کریں -->
+<!--
+<div class="nf-section-header">
+    <h2 class="nf-title">📝 سیکشن کا عنوان</h2>
+    <button class="nf-copy-btn" onclick="nfCopyLink('sectionId')">📋 کاپی لنک</button>
+</div>
+-->
+
+<!-- ===== 6. RESULT CARD SAVE & PRINT ===== -->
+<!-- رزلٹ کارڈ کے نیچے یہ بٹن شامل کریں -->
+<!--
+<div class="nf-btn-group">
+    <button class="nf-btn nf-btn-print" onclick="nfPrintResult()">🖨️ پرنٹ</button>
+    <button class="nf-btn nf-btn-save" onclick="nfSaveResultCard()">💾 تصویر سیو</button>
+</div>
+-->
+
+<!-- ===== 7. DASHBOARD COPY ICONS ===== -->
+<!-- ہر ڈیش بورڈ کارڈ میں یہ آئیکن شامل کریں -->
+<!--
+<button class="nf-copy-icon" onclick="nfCopyStat('visitors')" title="کاپی کریں" id="nf-copy-visitors">📋</button>
+-->
+
+<!-- ===== 8. PROFILE WATERMARK ===== -->
+<!-- پروفائل کی جگہ یہ استعمال کریں -->
+<!--
+<div class="nf-profile-container" id="nf-profileSection">
+    <img src="IMG_4099.PNG" alt="Aqib Saleem Attari" class="nf-profile-img" onerror="this.style.display='none'">
+    <div class="nf-watermark">✦ Engr. Aqib saleem Attari✦</div>
+</div>
+-->
+
+<!-- ===== 9. REGISTRATION STATUS MANAGEMENT ===== -->
+<!-- رجسٹریشن کے نیچے یہ شامل کریں -->
+<!--
+<div id="nf-regStatusMsg" style="display:none;" class="nf-status-box">
+    <span class="nf-icon" id="nf-regStatusIcon">⏳</span>
+    <h2 id="nf-regStatusTitle" style="color: #fbbf24;">آپ کی رجسٹریشن زیرِ تصدیق ہے</h2>
+    <p id="nf-regStatusText">تصدیق کے بعد آپ کو رول نمبر جاری کر دیا جائے گا۔</p>
+</div>
+-->
+
+<script>
+/* ============================================================
+   NEW FEATURES JAVASCRIPT - تمام Functions "nf-" prefix استعمال کرتے ہیں
+   ============================================================ */
+
+// ===== STATE VARIABLES =====
+let nfIsRollSlipOpen = true;
+let nfStatusCheckInterval = null;
+
+// ===== CNIC VALIDATION =====
+function nfValidateCNIC(cnic) {
+    return /^\d{5}-\d{7}-\d$/.test(cnic);
+}
+
+// ===== ROLL NUMBER SLIP PORTAL =====
+window.nfCheckRollSlip = async function() {
+    try {
+        if (!nfIsRollSlipOpen) {
+            nfShowToast('⚠️ رول نمبر پورٹل فی الحال بند ہے۔', 'warning');
+            return;
+        }
+        
+        const cnic = document.getElementById('nf-rollSlipCNIC').value.trim();
+        
+        if (!cnic) {
+            nfShowToast('⚠️ براہ کرم شناختی کارڈ نمبر درج کریں!', 'warning');
+            return;
+        }
+        
+        if (!nfValidateCNIC(cnic)) {
+            nfShowToast('⚠️ براہِ کرم درست شناختی کارڈ نمبر درج کریں۔ (مثال: 12345-1234567-1)', 'warning');
+            const box = document.getElementById('nf-rollSlipDisplayBox');
+            box.style.display = 'block';
+            box.innerHTML = `
+                <div class="nf-status-box">
+                    <span class="nf-icon">❌</span>
+                    <h4 style="color: #f87171;">براہِ کرم درست شناختی کارڈ نمبر درج کریں</h4>
+                    <p style="color:#94a3b8;">Please enter a valid CNIC number. (Format: 12345-1234567-1)</p>
+                </div>
+            `;
+            return;
+        }
+        
+        nfShowLoading();
+        const box = document.getElementById('nf-rollSlipDisplayBox');
+        box.style.display = 'block';
+        
+        // Firebase Query
+        if (typeof db !== 'undefined' && db && typeof collection !== 'undefined' && typeof query !== 'undefined' && typeof where !== 'undefined' && typeof getDocs !== 'undefined') {
+            try {
+                const registrationsRef = collection(db, 'registrations');
+                const q = query(registrationsRef, where('cnic', '==', cnic));
+                const regSnap = await getDocs(q);
+                
+                if (regSnap.empty) {
+                    nfHideLoading();
+                    box.innerHTML = `
+                        <div class="nf-status-box">
+                            <span class="nf-icon">📭</span>
+                            <h4 style="color: #f87171;">یہ شناختی کارڈ نمبر رجسٹرڈ نہیں ہے</h4>
+                            <p style="color:#94a3b8;">This CNIC number is not registered.</p>
+                        </div>
+                    `;
+                    nfShowToast('❌ یہ شناختی کارڈ نمبر رجسٹرڈ نہیں ہے۔', 'error');
+                    return;
+                }
+                
+                let latestReg = null;
+                let latestDate = null;
+                
+                regSnap.forEach(doc => {
+                    const data = doc.data();
+                    if (data.cnic === cnic) {
+                        const regDate = data.registrationDate || '';
+                        if (!latestDate || regDate > latestDate) {
+                            latestDate = regDate;
+                            latestReg = { id: doc.id, ...data };
+                        }
+                    }
+                });
+                
+                if (!latestReg) {
+                    nfHideLoading();
+                    box.innerHTML = `
+                        <div class="nf-status-box">
+                            <span class="nf-icon">❌</span>
+                            <h4 style="color: #f87171;">یہ شناختی کارڈ نمبر رجسٹرڈ نہیں ہے</h4>
+                            <p style="color:#94a3b8;">This CNIC number is not registered.</p>
+                        </div>
+                    `;
+                    nfShowToast('❌ یہ شناختی کارڈ نمبر رجسٹرڈ نہیں ہے۔', 'error');
+                    return;
+                }
+                
+                // Check Payment Status
+                if (latestReg.paymentStatus !== 'Verified') {
+                    nfHideLoading();
+                    box.innerHTML = `
+                        <div class="nf-status-box">
+                            <span class="nf-icon">⏳</span>
+                            <h4 style="color: #fbbf24;">فیس زیرِ التواء</h4>
+                            <p>آپ کی فیس ابھی تصدیق کے مرحلے میں ہے۔ فیس کی تصدیق کے بعد آپ کا رول نمبر جاری کیا جائے گا۔</p>
+                        </div>
+                    `;
+                    nfShowToast('⏳ فیس زیرِ التواء ہے۔', 'warning');
+                    return;
+                }
+                
+                // Check Registration Status
+                if (latestReg.status === 'Pending') {
+                    nfHideLoading();
+                    box.innerHTML = `
+                        <div class="nf-status-box">
+                            <span class="nf-icon">⏳</span>
+                            <h4 style="color: #fbbf24;">رجسٹریشن زیرِ تصدیق ہے</h4>
+                            <p>رول نمبر جاری ہونے کے بعد یہاں ظاہر ہوگا۔</p>
+                        </div>
+                    `;
+                    nfShowToast('⏳ رجسٹریشن زیرِ تصدیق ہے۔', 'info');
+                    return;
+                }
+                
+                // Approved - Show Slip
+                if (latestReg.status === 'Approved' && latestReg.rollNumber) {
+                    const phoneNumber = '03181534883';
+                    box.innerHTML = `
+                        <div id="nf-rollSlipCard">
+                            <div class="nf-glow"></div>
+                            <div class="nf-academy">عاقب سلیم عطاری<br>اے آئی لرننگ اینڈ ڈیجیٹل سکلز اکیڈمی</div>
+                            <p class="nf-instructor">| انجینئر عاقب سلیم عطاری | وائس پرنسپل و ایڈمنسٹریٹر</p>
+                            <hr class="nf-divider">
+                            <h4 class="nf-card-title">🎫 رول نمبر سلپ</h4>
+                            <div class="nf-details">
+                                <p><span class="nf-label">بیچ نمبر:</span> <span class="nf-value">${latestReg.batchNumber || 'N/A'}</span></p>
+                                <p><span class="nf-label">طالب علم کا نام:</span> <span class="nf-value">${latestReg.studentName || 'N/A'}</span></p>
+                                <p><span class="nf-label">والد کا نام:</span> <span class="nf-value">${latestReg.fatherName || 'N/A'}</span></p>
+                                <p><span class="nf-label">شناختی کارڈ نمبر:</span> <span class="nf-value">${latestReg.cnic}</span></p>
+                                <p><span class="nf-label">فون نمبر:</span> <span class="nf-value">${phoneNumber}</span></p>
+                                <p><span class="nf-label">رول نمبر:</span> <span class="nf-roll-number">${latestReg.rollNumber}</span></p>
+                                <p><span class="nf-label">رجسٹریشن کی تاریخ:</span> <span class="nf-value">${new Date(latestReg.registrationDate).toLocaleDateString('ur-PK')}</span></p>
+                            </div>
+                            <hr class="nf-divider">
+                            <p class="nf-footer">یہ سلپ آپ کی رجسٹریشن کی تصدیق ہے۔<br>براہ کرم امتحان کے وقت یہ سلپ ساتھ رکھیں۔<br>مزید معلومات کے لیے رابطہ کریں: 03181534883</p>
+                        </div>
+                        <div class="nf-btn-group" style="margin-top:20px;">
+                            <button class="nf-btn-save" onclick="nfSaveRollSlip()">💾 سلپ بطور تصویر سیو کریں</button>
+                        </div>
+                    `;
+                    nfHideLoading();
+                    nfShowToast('✅ رول نمبر سلپ لوڈ ہو گئی!', 'success');
+                    return;
+                }
+                
+                nfHideLoading();
+                box.innerHTML = `
+                    <div class="nf-status-box">
+                        <span class="nf-icon">❌</span>
+                        <h4 style="color: #f87171;">خرابی</h4>
+                        <p>رجسٹریشن کی حیثیت معلوم نہیں ہو سکی۔ براہ کرم ایڈمن سے رابطہ کریں۔</p>
+                    </div>
+                `;
+                nfShowToast('❌ رجسٹریشن کی حیثیت معلوم نہیں ہو سکی۔', 'error');
+                
+            } catch (firebaseError) {
+                nfHideLoading();
+                console.error('Firebase Error:', firebaseError);
+                box.innerHTML = `
+                    <div class="nf-status-box">
+                        <span class="nf-icon">⚠️</span>
+                        <h4 style="color: #fbbf24;">سروس دستیاب نہیں</h4>
+                        <p>براہ کرم بعد میں دوبارہ کوشش کریں۔</p>
+                        <p style="color:#94a3b8; font-size:12px;">${firebaseError.message}</p>
+                    </div>
+                `;
+                nfShowToast('⚠️ سروس دستیاب نہیں۔', 'error');
+            }
+        } else {
+            nfHideLoading();
+            box.innerHTML = `
+                <div class="nf-status-box">
+                    <span class="nf-icon">⚠️</span>
+                    <h4 style="color: #fbbf24;">سروس دستیاب نہیں</h4>
+                    <p>براہ کرم بعد میں دوبارہ کوشش کریں۔</p>
+                </div>
+            `;
+            nfShowToast('⚠️ سروس دستیاب نہیں۔', 'error');
+        }
+        
+    } catch (error) {
+        nfHideLoading();
+        nfShowToast('❌ سلپ چیک کرنے میں خرابی: ' + error.message, 'error');
+        console.error('Roll Slip Error:', error);
+    }
+};
+
+// ===== SAVE ROLL SLIP AS IMAGE =====
+window.nfSaveRollSlip = async function() {
+    try {
+        const slipCard = document.getElementById('nf-rollSlipCard');
+        if (!slipCard) {
+            nfShowToast('⚠️ پہلے سلپ چیک کریں!', 'warning');
+            return;
+        }
+        
+        if (typeof html2canvas === 'undefined') {
+            nfShowToast('⚠️ html2canvas لائبریری دستیاب نہیں۔ براہ کرم انٹرنیٹ کنیکٹ چیک کریں۔', 'error');
+            return;
+        }
+        
+        nfShowLoading();
+        const canvas = await html2canvas(slipCard, { 
+            scale: 2, 
+            useCORS: true, 
+            backgroundColor: null, 
+            logging: false 
+        });
+        const link = document.createElement('a');
+        link.download = 'Roll_Number_Slip_' + new Date().toISOString().slice(0,10) + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        nfHideLoading();
+        nfShowToast('✅ رول نمبر سلپ کامیابی سے سیو ہو گئی!', 'success');
+    } catch (error) {
+        nfHideLoading();
+        nfShowToast('❌ سلپ سیو کرنے میں خرابی: ' + error.message, 'error');
+        console.error('Save Slip Error:', error);
+    }
+};
+
+// ===== ROLL SLIP PORTAL CONTROL =====
+window.nfSetPortalStatus = async function(portal, open) {
+    try {
+        if (typeof auth === 'undefined' || !auth.currentUser) {
+            nfShowToast('⚠️ براہ کرم پہلے ایڈمن لاگ ان کریں!', 'warning');
+            return;
+        }
+        
+        nfShowLoading();
+        
+        if (typeof db !== 'undefined' && db && typeof doc !== 'undefined' && typeof setDoc !== 'undefined' && typeof getDoc !== 'undefined') {
+            try {
+                const docRef = doc(db, 'settings', 'portal_controls');
+                const docSnap = await getDoc(docRef);
+                let data = docSnap.exists() ? docSnap.data() : {};
+                
+                if (portal === 'rollSlip') {
+                    data.rollSlipOpen = open;
+                    nfIsRollSlipOpen = open;
+                }
+                
+                await setDoc(docRef, data);
+                nfHideLoading();
+                nfShowToast(open ? '✅ رول سلپ پورٹل کھول دیا گیا!' : '🛑 رول سلپ پورٹل بند کر دیا گیا!', open ? 'success' : 'warning');
+                nfUpdatePortalUI();
+            } catch (firebaseError) {
+                nfHideLoading();
+                console.error('Firebase Error:', firebaseError);
+                nfShowToast('❌ پورٹل تبدیل کرنے میں خرابی: ' + firebaseError.message, 'error');
+            }
+        } else {
+            nfHideLoading();
+            nfShowToast('⚠️ سروس دستیاب نہیں۔', 'error');
+        }
+    } catch (error) {
+        nfHideLoading();
+        nfShowToast('❌ پورٹل تبدیل کرنے میں خرابی: ' + error.message, 'error');
+        console.error('Set Portal Status Error:', error);
+    }
+};
+
+// ===== UPDATE PORTAL UI =====
+function nfUpdatePortalUI() {
+    try {
+        const searchArea = document.getElementById('nf-rollSlipSearchArea');
+        const closedMsg = document.getElementById('nf-rollSlipClosedMsg');
+        const badge = document.getElementById('nf-rollSlipStatusBadge');
+        const displayBox = document.getElementById('nf-rollSlipDisplayBox');
+        
+        if (!nfIsRollSlipOpen) {
+            if (closedMsg) closedMsg.style.display = 'block';
+            if (searchArea) searchArea.style.display = 'none';
+            if (displayBox) displayBox.style.display = 'none';
+        } else {
+            if (closedMsg) closedMsg.style.display = 'none';
+            if (searchArea) searchArea.style.display = 'block';
+        }
+        
+        if (badge) {
+            badge.textContent = nfIsRollSlipOpen ? '✅ ایکٹو / اوپن' : '❌ بند / آف';
+            badge.className = 'nf-badge ' + (nfIsRollSlipOpen ? 'nf-badge-on' : 'nf-badge-off');
+        }
+    } catch (error) {
+        console.error('UI Update Error:', error);
+    }
+}
+
+// ===== COPY LINK =====
+window.nfCopyLink = function(sectionId) {
+    const url = window.location.href.split('#')[0] + '#' + sectionId;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+            nfShowToast('✅ لنک کاپی ہو گیا! شیئر کریں۔', 'success');
+        }).catch(() => {
+            nfFallbackCopyLink(url);
+        });
+    } else {
+        nfFallbackCopyLink(url);
+    }
+};
+
+function nfFallbackCopyLink(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        nfShowToast('✅ لنک کاپی ہو گیا! شیئر کریں۔', 'success');
+    } catch (err) {
+        nfShowToast('❌ لنک کاپی نہیں ہو سکا', 'error');
+    }
+    document.body.removeChild(textarea);
+}
+
+// ===== SCROLL TO SECTION =====
+window.nfScrollTo = function(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        const offset = 80;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+        nfShowToast('📌 ' + id + ' سیکشن پر پہنچ گئے', 'info');
+    } else {
+        nfShowToast('⚠️ سیکشن نہیں ملا', 'error');
+    }
+};
+
+// ===== COPY STAT =====
+window.nfCopyStat = function(type) {
+    const statData = {
+        visitors: { label: 'زائرین', element: 'visitorCountDisplay' },
+        students: { label: 'رجسٹرڈ طلباء', element: 'studentCountDisplay' },
+        projects: { label: 'کامیاب پروجیکٹس', element: 'projectCountDisplay' },
+        reviews: { label: 'تصدیق شدہ ریویوز', element: 'reviewCountDisplay' }
+    };
+    
+    const stat = statData[type];
+    if (!stat) return;
+    
+    const el = document.getElementById(stat.element);
+    const value = el ? el.textContent : '0';
+    const text = stat.label + ': ' + value;
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            nfShowCopyFeedback(type);
+        }).catch(() => {
+            nfFallbackCopy(text, type);
+        });
+    } else {
+        nfFallbackCopy(text, type);
+    }
+};
+
+function nfFallbackCopy(text, type) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        nfShowCopyFeedback(type);
+    } catch (err) {
+        nfShowToast('❌ کاپی نہیں ہو سکا', 'error');
+    }
+    document.body.removeChild(textarea);
+}
+
+function nfShowCopyFeedback(type) {
+    const btn = document.getElementById('nf-copy-' + type);
+    if (btn) {
+        btn.classList.add('nf-copied');
+        btn.textContent = '✅';
+        setTimeout(() => {
+            btn.classList.remove('nf-copied');
+            btn.textContent = '📋';
+        }, 2000);
+    }
+    const labels = {
+        visitors: 'زائرین',
+        students: 'رجسٹرڈ طلباء',
+        projects: 'کامیاب پروجیکٹس',
+        reviews: 'تصدیق شدہ ریویوز'
+    };
+    nfShowToast('✅ ' + labels[type] + ' کاپی ہو گیا!', 'success');
+}
+
+// ===== RESULT CARD SAVE & PRINT =====
+window.nfSaveResultCard = async function() {
+    try {
+        const resultCard = document.getElementById('resultCard');
+        if (!resultCard) {
+            nfShowToast('⚠️ پہلے رزلٹ چیک کریں!', 'warning');
+            return;
+        }
+        
+        if (typeof html2canvas === 'undefined') {
+            nfShowToast('⚠️ html2canvas لائبریری دستیاب نہیں۔', 'error');
+            return;
+        }
+        
+        nfShowLoading();
+        const canvas = await html2canvas(resultCard, { 
+            scale: 2, 
+            useCORS: true, 
+            backgroundColor: null, 
+            logging: false 
+        });
+        const link = document.createElement('a');
+        link.download = 'Result_Card_' + new Date().toISOString().slice(0,10) + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        nfHideLoading();
+        nfShowToast('✅ رزلٹ کارڈ کامیابی سے سیو ہو گیا!', 'success');
+    } catch (error) {
+        nfHideLoading();
+        nfShowToast('❌ رزلٹ کارڈ سیو کرنے میں خرابی: ' + error.message, 'error');
+        console.error('Save Result Error:', error);
+    }
+};
+
+window.nfPrintResult = function() {
+    window.print();
+};
+
+// ===== MENU TOGGLE =====
+window.nfToggleMenu = function() {
+    const menu = document.getElementById('menuItems');
+    const toggle = document.getElementById('menuToggle');
+    if (menu) {
+        menu.classList.toggle('show');
+        if (toggle) {
+            toggle.classList.toggle('active');
+            toggle.textContent = menu.classList.contains('show') ? '✕' : '☰';
+        }
+    }
+};
+
+// ===== TOAST NOTIFICATIONS =====
+function nfShowToast(message, type) {
+    type = type || 'info';
+    let container = document.getElementById('nf-toastContainer');
+    
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'nf-toastContainer';
+        container.style.cssText = `
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 350px;
+            width: 100%;
+        `;
+        document.body.appendChild(container);
+    }
+    
+    const toast = document.createElement('div');
+    const colors = {
+        success: '#34d399',
+        error: '#f87171',
+        warning: '#fbbf24',
+        info: '#60a5fa'
+    };
+    const icons = {
+        success: '✅',
+        error: '❌',
+        warning: '⚠️',
+        info: 'ℹ️'
+    };
+    
+    toast.style.cssText = `
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 14px 18px;
+        color: #e0e0e0;
+        font-size: 14px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-right: 4px solid ${colors[type] || '#60a5fa'};
+        animation: nfSlideInRight 0.3s ease forwards;
+    `;
+    
+    toast.innerHTML = `
+        <span style="font-size: 20px;">${icons[type] || 'ℹ️'}</span>
+        <span>${message}</span>
+        <span onclick="this.parentElement.remove()" style="cursor: pointer; opacity: 0.5; transition: 0.3s; margin-right: auto; font-size: 18px;">✕</span>
+    `;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        if (toast.parentElement) {
+            toast.style.animation = 'nfSlideOutRight 0.3s ease forwards';
+            setTimeout(() => {
+                if (toast.parentElement) toast.remove();
+            }, 300);
+        }
+    }, 3000);
+}
+
+// ===== LOADING SPINNER =====
+function nfShowLoading() {
+    let spinner = document.getElementById('nf-loadingSpinner');
+    if (!spinner) {
+        spinner = document.createElement('div');
+        spinner.id = 'nf-loadingSpinner';
+        spinner.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 99999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        `;
+        spinner.innerHTML = `
+            <div style="border: 4px solid rgba(255, 255, 255, 0.05); border-top: 4px solid #7c3aed; border-radius: 50%; width: 50px; height: 50px; animation: nfSpin 1s linear infinite;"></div>
+            <p style="color: #94a3b8; margin-top: 10px;">⏳ براہ کرم انتظار کریں...</p>
+        `;
+        document.body.appendChild(spinner);
+    }
+    spinner.style.display = 'flex';
+}
+
+function nfHideLoading() {
+    const spinner = document.getElementById('nf-loadingSpinner');
+    if (spinner) {
+        spinner.style.display = 'none';
+    }
+}
+
+// ===== INITIALIZATION =====
+// Load portal status from Firebase
+if (typeof db !== 'undefined' && db && typeof doc !== 'undefined' && typeof onSnapshot !== 'undefined') {
+    try {
+        onSnapshot(doc(db, 'settings', 'portal_controls'), (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                nfIsRollSlipOpen = data.rollSlipOpen !== false;
+                nfUpdatePortalUI();
+            }
+        });
+    } catch (error) {
+        console.error('Firebase Listener Error:', error);
+    }
+}
+
+console.log('✅ نئے فیچرز کامیابی سے لوڈ ہو گئے!');
+console.log('🎫 رول نمبر سلپ پورٹل');
+console.log('📋 کاپی لنک بٹنز');
+console.log('📌 فلوٹنگ کوئیک بٹنز');
+console.log('🏷️ پروفائل واٹرمارک');
+console.log('📊 ڈیش بورڈ کاپی آئیکنز');
+console.log('🔢 لائیو اینیمیشنز');
+console.log('📈 رجسٹریشن اسٹیٹس مینجمنٹ');
+console.log('💾 رزلٹ کارڈ سیو بطور PNG');
+console.log('🖨️ رزلٹ کارڈ پرنٹ');
+console.log('🎨 بہتر تھیم سپورٹ');
+console.log('🔗 مینو میں رول سلپ لنک');
+console.log('🔄 ریسپانسیو ڈیزائن');
+console.log('🎫 رول سلپ بطور تصویر سیو');
+</script>
